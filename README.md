@@ -1,4 +1,4 @@
-# APIs com Relacionamentos
+# Mininals APIs Relacionais
 
 
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.com/gilbriatore/2024/top-n/m-apis-rel.git
+git remote add origin https://gitlab.com/gilbriatore/2024/top-m/m-apis-rel.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.com/gilbriatore/2024/top-n/m-apis-rel/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlab.com/gilbriatore/2024/top-m/m-apis-rel/-/settings/integrations)
 
 ## Collaborate with your team
 

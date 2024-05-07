@@ -31,12 +31,7 @@ public class Cliente
             "cep": "44444"
           },
           {
-            "id": 6,
-            "rua": "Rua a",
-            "numero": "1",
-            "bairro": "C",
-            "cidade": "Curitiba",
-            "cep": "44444"
+            "id": 6
           }
         ]
       }

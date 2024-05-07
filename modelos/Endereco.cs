@@ -28,7 +28,6 @@ public class Endereco {
       }
 
     */
-
     public override string ToString()
     {
         return $"Id: {Id}, Rua: {Rua}, Numero: {Numero}, Bairro: {Bairro}, Cidade: {Cidade}, CEP: {CEP}";

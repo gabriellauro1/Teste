@@ -13,12 +13,38 @@ public static class ClientesApi
       }
     );
 
+    /**
+      Exemplo de POST
+      // Pode ser cadastrado cliente com 
+      // endereços novos (sem Ids) ou 
+      // endereços existentes (com Ids).
+        
+      {
+        "nome": "João",
+        "cpf": "22222",
+        "telefone": "2222",
+        "email": "e@e.com",
+        "enderecos": [
+          {
+            "rua": "Rua a",
+            "numero": "1",
+            "bairro": "C",
+            "cidade": "Curitiba",
+            "cep": "44444"
+          },
+          {
+            "id": 6
+          }
+        ]
+      }
+
+    */
     group.MapPost("/", async (Cliente cliente, BancoDeDados db) =>
       {
         Console.WriteLine($"Cliente: {cliente}");
 
         // Tratamento para salvar endereços com e sem Ids.
-        cliente.Enderecos = await TratarEnderecos(cliente, db);
+        cliente.Enderecos = await SalvarEnderecos(cliente, db);
         
         db.Clientes.Add(cliente);
         //insert into...
@@ -28,31 +54,7 @@ public static class ClientesApi
       }
     );
 
-    group.MapPut("/{id}", async (int id, Cliente clienteAlterado, BancoDeDados db) =>
-      {
-        //select * from clientes where id = ?
-        var cliente = await db.Clientes.FindAsync(id);
-        if (cliente is null)
-        {
-            return Results.NotFound();
-        }
-        cliente.Nome = clienteAlterado.Nome;
-        cliente.Telefone = clienteAlterado.Telefone;
-        cliente.Email = clienteAlterado.Email;
-        cliente.CPF = clienteAlterado.CPF;
-
-        // Tratamento para salvar endereços com e sem Ids.
-        cliente.Enderecos = await TratarEnderecos(cliente, db);
-
-        //update....
-        await db.SaveChangesAsync();
-
-        return Results.NoContent();
-      }
-    );
-
-
-    async Task<List<Endereco>> TratarEnderecos(Cliente cliente, BancoDeDados db)
+    async Task<List<Endereco>> SalvarEnderecos(Cliente cliente, BancoDeDados db)
     {
       List<Endereco> enderecos = new();
       if (cliente is not null && cliente.Enderecos is not null 
@@ -77,6 +79,29 @@ public static class ClientesApi
       }
       return enderecos;
     }
+
+    group.MapPut("/{id}", async (int id, Cliente clienteAlterado, BancoDeDados db) =>
+      {
+        //select * from clientes where id = ?
+        var cliente = await db.Clientes.FindAsync(id);
+        if (cliente is null)
+        {
+            return Results.NotFound();
+        }
+        cliente.Nome = clienteAlterado.Nome;
+        cliente.Telefone = clienteAlterado.Telefone;
+        cliente.Email = clienteAlterado.Email;
+        cliente.CPF = clienteAlterado.CPF;
+
+        // Tratamento para salvar endereços com e sem Ids.
+        cliente.Enderecos = await SalvarEnderecos(cliente, db);
+
+        //update....
+        await db.SaveChangesAsync();
+
+        return Results.NoContent();
+      }
+    );
 
     group.MapDelete("/{id}", async (int id, BancoDeDados db) =>
       {

@@ -11,6 +11,22 @@ public static class EnderecosApi
       await db.Enderecos.ToListAsync()
     );
 
+    /**
+      Exemplo de POST   
+      // Para vincular o cliente é 
+      // necessário apenas o id.
+      {
+        "rua": "Rua z",
+        "numero": "4",
+        "bairro": "C",
+        "cidade": "Curitiba",
+        "cep": "656565756",
+        "cliente": {
+            "id": 2 
+        }
+      }
+
+    */
     group.MapPost("/", async (Endereco endereco, BancoDeDados db) =>
       {
         // Tratamento para salvar endereços incluindo cliente.

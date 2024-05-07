@@ -28,5 +28,7 @@ app.UseSwaggerUI();
 app.MapGet("/", () => "APIs relacionadas com EF + Swagger");
 app.MapClientesApi();
 app.MapEnderecosApi();
+app.MapAlunosApi();
+app.MapDisciplinasApi();
 
 app.Run();
